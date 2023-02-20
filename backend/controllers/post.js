@@ -6,6 +6,7 @@ import { uploader } from "../utils/cloudinary.js";
 
 export const createPost = async (req, res) => {
 
+    console.log(req.body)
     const newPost = new Post({
         photo: req.body.photo,
         caption: req.body.caption,
@@ -17,7 +18,7 @@ export const createPost = async (req, res) => {
         res.status(200).json(savedPost)
         await User.findOneAndUpdate({_id: req.user}, { $push: {posts: savedPost._id}, $inc: { postCount: 1 } } , {new: true})
         console.log('New post created')
-    } catch (err) { console.log(err)}
+    } catch (err) { throw err }
 
 }
 
@@ -38,10 +39,7 @@ export const uploadContentToCloudinary = (req, res) => {
             message: 'Something went wrong with your upload to cloudinary',
             data: { err }
         }))
-    
-
 }
-
 
 export const deletePost = async (req, res) => {
 
@@ -63,7 +61,7 @@ export const deletePost = async (req, res) => {
 
 }
 
-// // Edit post caption only, not photo/video
+// Edit post caption only, not photo/video
 export const editPostCaption = async (req, res) => {
 try {
 
@@ -114,7 +112,6 @@ return res.status(200).json(post)
 export const likePostToggle = async (req, res) => {
 
 const post = await Post.findOne({_id: req.params.postid})
-console.log(post)
 const selectedPost = post._id
 
 const isLikedByUser = post.likes.includes(req.user)
