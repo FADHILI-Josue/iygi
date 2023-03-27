@@ -58,7 +58,7 @@ export const registerNewUser = asyncHandler(async (req, res) => {
 export const loginUser = asyncHandler(async (req, res) => {
   const { userName, password } = req.body;
   if (!userName || !password) {
-    res.status(400);
+    res.status(400).send("all field need to be filled out");
     throw new Error("All fields need to be filled out.");
   }
 
@@ -74,7 +74,7 @@ export const loginUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400).json("Invalid credentials");
-    throw new Error("Invalid credentials");
+    // throw new Error("Invalid credentials");
   }
 });
 

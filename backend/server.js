@@ -9,7 +9,7 @@ import conversationRoutes from './routes/conversations.js'
 import commentRoutes from './routes/comments.js'
 import { cloudinaryConfig } from './utils/cloudinary.js'
 dotenv.config()
-
+    
 /**CONNECTING TO DATABASE */
 import connectDB from './config/db.js'
 connectDB()

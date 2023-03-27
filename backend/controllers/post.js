@@ -17,7 +17,7 @@ export const createPost = async (req, res) => {
         res.status(200).json(savedPost)
         await User.findOneAndUpdate({_id: req.user}, { $push: {posts: savedPost._id}, $inc: { postCount: 1 } } , {new: true})
         console.log('New post created')
-    } catch (err) { throw err }
+    } catch (err) { console.log(err)}
 
 }
 
@@ -114,6 +114,7 @@ return res.status(200).json(post)
 export const likePostToggle = async (req, res) => {
 
 const post = await Post.findOne({_id: req.params.postid})
+console.log(post)
 const selectedPost = post._id
 
 const isLikedByUser = post.likes.includes(req.user)
